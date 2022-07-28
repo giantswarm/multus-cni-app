@@ -24,7 +24,7 @@ spec:
           effect: NoSchedule
         - operator: Exists
           effect: NoExecute
-      serviceAccountName: multus
+      serviceAccountName: {{ include "name" . }}
       containers:
         - name: kube-multus
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
