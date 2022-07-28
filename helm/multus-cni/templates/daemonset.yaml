@@ -28,13 +28,12 @@ spec:
       containers:
         - name: kube-multus
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-          command: [ "/usr/src/multus-cni/bin/multus-daemon" ]
           args:
-            - "-cni-version=0.3.1"
-            - "-cni-config-dir=/host/etc/cni/net.d"
-            - "-multus-autoconfig-dir=/host/etc/cni/net.d"
-            - "-multus-log-to-stderr=true"
-            - "-multus-log-level=verbose"
+            - "--cni-version=0.3.1"
+            - "--multus-conf-file={{ if eq .Values.cniConfig "" }}auto{{ else }}/tmp/multus-conf/00-multus.conf{{ end }}"
+            - "--cleanup-config-on-exit=true"
+            - "--multus-log-to-stderr=true"
+            - "--multus-log-level=debug"
           resources:
             requests:
               cpu: "100m"
@@ -49,6 +48,10 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cnibin
               mountPath: /host/opt/cni/bin
+            {{- if ne .Values.cniConfig "" }}
+            - name: multus-cfg
+              mountPath: /tmp/multus-conf
+            {{- end }}
       initContainers:
         - name: install-multus-binary
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
@@ -91,4 +94,11 @@ spec:
         - name: cnibin
           hostPath:
             path: /opt/cni/bin
-
+      {{- if ne .Values.cniConfig "" }}
+        - name: multus-cfg
+          configMap:
+            name: multus-cni-config
+            items:
+              - key: cni-conf.json
+                path: 00-multus.conf
+      {{- end }}

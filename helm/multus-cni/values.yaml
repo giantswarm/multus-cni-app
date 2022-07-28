@@ -8,5 +8,67 @@ project:
 image:
   registry: docker.io
   name: giantswarm/multus-cni
-  tag: v3.9-thick-amd64
+  tag: v3.9-amd64
   pullPolicy: IfNotPresent
+
+# If you specify a cniConfig, the chart will run with the `--multus-conf-file=<your conf file>` flag.
+# Otherwise --multus-conf-file=auto will be used.
+cniConfig: ""
+
+# Example config to attach 2 network interfaces to every pod:
+# cniConfig: >
+#   {
+#     "cniVersion": "0.3.1",
+#     "name": "multus-cni-network",
+#     "type": "multus",
+#     "confDir": "/etc/cni/net.d",
+#     "capabilities": {
+#       "portMappings": true
+#     },
+#     "kubeconfig": "/etc/cni/net.d/multus.d/multus.kubeconfig",
+#     "clusterNetwork": "aws-cni",
+#     "defaultNetworks": ["macvlan"],
+#     "delegates": []
+#   }
+
+# For above example to work, you need to create the /etc/cni/net.d/11-macvlan.conf file with:
+#{
+#   "cniVersion": "0.3.1",
+#	"name": "macvlan",
+#	"type": "macvlan",
+#	"master": "eth0",
+#   "ipam": {
+#     "type": "host-local",
+#     "subnet": "192.168.1.0/24",
+#     "rangeStart": "192.168.1.200",
+#     "rangeEnd": "192.168.1.216",
+#     "routes": [
+#       { "dst": "0.0.0.0/0" }
+#     ],
+#     "gateway": "192.168.1.1"
+#   }
+#}
+#
+# Alternatively you can create a `NetworkAttachmentDefinition`:
+#
+# apiVersion: "k8s.cni.cncf.io/v1"
+# kind: NetworkAttachmentDefinition
+# metadata:
+#   name: macvlan
+# spec:
+#   config: '{
+#       "cniVersion": "0.3.0",
+#       "type": "macvlan",
+#       "master": "eth0",
+#       "mode": "bridge",
+#       "ipam": {
+#         "type": "host-local",
+#         "subnet": "192.168.1.0/24",
+#         "rangeStart": "192.168.1.200",
+#         "rangeEnd": "192.168.1.216",
+#         "routes": [
+#           { "dst": "0.0.0.0/0" }
+#         ],
+#         "gateway": "192.168.1.1"
+#       }
+#     }'
