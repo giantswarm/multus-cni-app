@@ -54,5 +54,5 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ include "name" . }}
-    namespace: {{ .Release.Namespace }}
+    namespace: kube-system
 {{- end }}
