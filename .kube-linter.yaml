@@ -6,3 +6,7 @@ checks:
   - "privilege-escalation-container"
   - "privileged-container"
   - "run-as-non-root"
+  - "no-liveness-probe"
+  - "no-readiness-probe"
+  - "required-annotation-email"
+  - "writable-host-mount"

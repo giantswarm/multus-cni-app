@@ -34,5 +34,6 @@ application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantsw
 giantswarm.io/managed-by: {{ .Release.Name | quote }}
 giantswarm.io/service-type: {{ .Values.serviceType }}
 helm.sh/chart: {{ include "chart" . | quote }}
+owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
 
