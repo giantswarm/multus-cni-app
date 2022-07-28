@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/multus-cni.svg?style=shield)](https://circleci.com/gh/giantswarm/multus-cni)
+[![CircleCI](https://circleci.com/gh/giantswarm/multus-cni-app.svg?style=shield)](https://circleci.com/gh/giantswarm/multus-cni-app)
 
 [Read me after cloning this template (GS staff only)](https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
 
