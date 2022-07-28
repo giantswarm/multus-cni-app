@@ -1,4 +1,4 @@
-name: {APP-NAME}
+name: multus-cni
 serviceType: managed
 
 project:
@@ -6,7 +6,7 @@ project:
   commit: "[[ .SHA ]]"
 
 image:
-  registry: quay.io
-  name: giantswarm/{APP-NAME}
-  tag: v0.0.1
+  registry: docker.io
+  name: giantswarm/multus-cni
+  tag: v3.9-thick-amd64
   pullPolicy: IfNotPresent

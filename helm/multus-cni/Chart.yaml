@@ -1,0 +1,27 @@
+apiVersion: v2
+appVersion: 3.9
+
+# Please make sure your name DOES NOT end in "app" or "-app".
+name: multus-cni
+
+# Please describe what the app provides in a sentence or two.
+description: Multus CNI plugin
+
+home: https://github.com/giantswarm/multus-cni
+
+# If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
+# and set the final URL as a value here and uncomment.
+icon: https://s.giantswarm.io/app-icons/multus-cni/1/light.svg
+
+sources:
+- https://github.com/k8snetworkplumbingwg/multus-cni
+version: 0.1.0
+
+annotations:
+  application.giantswarm.io/team: "phoenix"
+  config.giantswarm.io/version: 1.x.x
+restrictions:
+  clusterSingleton: true
+  namespaceSingleton: true
+  fixedNamespace: kube-system
+  gpuInstances: false
