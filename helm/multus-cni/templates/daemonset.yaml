@@ -101,7 +101,7 @@ spec:
       {{- if .Values.cniConfig }}
         - name: multus-cfg
           configMap:
-            name: multus-cni-config
+            name: {{ include "name" . }}-config
             items:
               - key: cni-conf.json
                 path: 00-multus.conf
