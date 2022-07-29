@@ -11,6 +11,9 @@ image:
   tag: v3.9-amd64
   pullPolicy: IfNotPresent
 
+# Allows to filter the nodes where multus will be running to.
+nodeSelector: {}
+
 # If you specify a cniConfig, the chart will run with the `--multus-conf-file=<your conf file>` flag.
 # Otherwise --multus-conf-file=auto will be used.
 cniConfig: ""
