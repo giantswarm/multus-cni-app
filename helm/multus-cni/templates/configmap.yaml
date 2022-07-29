@@ -1,4 +1,4 @@
-{{ if ne .Values.cniConfig "" }}
+{{ if .Values.cniConfig }}
 kind: ConfigMap
 apiVersion: v1
 metadata:

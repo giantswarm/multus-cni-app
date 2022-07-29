@@ -30,7 +30,7 @@ spec:
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           args:
             - "--cni-version=0.3.1"
-            - "--multus-conf-file={{ if eq .Values.cniConfig "" }}auto{{ else }}/tmp/multus-conf/00-multus.conf{{ end }}"
+            - "--multus-conf-file={{ if .Values.cniConfig }}/tmp/multus-conf/00-multus.conf{{ else }}auto{{ end }}"
             - "--cleanup-config-on-exit=true"
             - "--multus-log-to-stderr=true"
             - "--multus-log-level=debug"
@@ -48,7 +48,7 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cnibin
               mountPath: /host/opt/cni/bin
-            {{- if ne .Values.cniConfig "" }}
+            {{- if .Values.cniConfig }}
             - name: multus-cfg
               mountPath: /tmp/multus-conf
             {{- end }}
@@ -94,7 +94,7 @@ spec:
         - name: cnibin
           hostPath:
             path: /opt/cni/bin
-      {{- if ne .Values.cniConfig "" }}
+      {{- if .Values.cniConfig }}
         - name: multus-cfg
           configMap:
             name: multus-cni-config
