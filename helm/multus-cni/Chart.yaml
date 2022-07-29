@@ -21,7 +21,7 @@ annotations:
   application.giantswarm.io/team: "phoenix"
   config.giantswarm.io/version: 1.x.x
 restrictions:
-  clusterSingleton: true
-  namespaceSingleton: true
+  clusterSingleton: false
+  namespaceSingleton: false
   fixedNamespace: kube-system
   gpuInstances: false
